@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="nl-NL">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="./assets/css/style.min.css">
+    <title>Dealerleasing</title>
+</head>
+
+<body>
+    <section class="testimonials">
+        <div class="row">
+            <!-- ================= Start left column ================= -->
+            <div class="columns small-12 medium-6 large-5">
+                <div class="img-holder">
+                    <img src="./assets/img/photo-1.jpg" alt="Photo 1" width="100%" height="auto">
+                </div>
+            </div>
+            <!-- ================= end left column ================= -->
+
+
+            <!-- ================= Start right column ================= -->
+            <div class="columns small-12 medium-6 large-7 full-screen">
+                <div class="content">
+                    <h2 class="sec-title">Dit vinden anderen van ons</h2>
+                    <p class="sec-desc">Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint.</br>
+                        Velit officia consequat duis enim velit mollit. Exercitation veniam consequat sunt nostrud amet.
+                    </p>
+                    <a href="https://www.google.com/search?gs_ssp=eJzj4tZP1zcsS483y0oqM2C0UjWoMDFPNjcytzQzSTU0MTNNMbcCClkmpxlYmJkYG5oZGJubmnnxpqQm5qQW5aQmFmfmpQMAamsTCQ&q=dealerleasing&rlz=1C1CHZN_enNL1011NL1011&oq=dea&aqs=chrome.1.69i57j46i39i175i199i650j46i512j0i512j69i60l4.2423j0j7&sourceid=chrome&ie=UTF-8#ip=1&lrd=0x47c727964e1465d7:0x49cf086431603756,1,,,," class="more-btn" title="Bekijk meer reviews" target="_blank">Bekijk meer reviews <span class="arrow-btn right-arrow-btn"></span></a>
+                </div> <!-- .content-->
+
+                <div class="reviews">
+                    <div class="slider-wapper">
+                    </div> <!-- .slider-wapper-->
+                </div> <!-- .reviews-->
+            </div> <!-- .columns -->
+        </div> <!-- .row -->
+    </section> <!-- .testimonials -->
+
+    <script src="./assets/js/jquery.min.js"></script>
+    <script src="./assets/js/slick.min.js"></script>
+    <script>
+        $(document).ready(function(){
+
+            // init slick
+            function slickSlider() {
+                $('.reviews .slider-wapper').slick({
+                    slidesToShow: 2,
+                    centerMode: false,
+                    prevArrow: "<button class='slick-prev slick-arrow arrow-btn left-arrow-btn' aria-label='previus'></button>",
+                    nextArrow: "<button class='slick-next slick-arrow arrow-btn right-arrow-btn' aria-label='next'></button>",
+                    responsive: [{
+                        breakpoint: 640,
+                        settings: {
+                            slidesToShow: 1
+                        }
+                    }, {
+                        breakpoint: 1024,
+                        settings: {
+                            slidesToShow: 1
+                        }
+                    }, {
+                        breakpoint: 1200,
+                        settings: {
+                            slidesToShow: 2
+                        }
+                    }]
+                });
+            }
+
+            // distroy slick
+            function destroySlider() {
+                if ($('.reviews .slider-wapper').hasClass('slick-initialized')) {
+                    $('.reviews .slider-wapper').slick('destroy');
+                }      
+            }
+
+            // get reviews
+            $.ajax({
+                dataType: 'json',
+                crossDomain: true,
+                url: './get-reviews.php',
+                type: 'post',
+                success: function(data) {
+                    // get slider container
+                    const sliderWrapper = $('.reviews .slider-wapper');
+                    // get reviews from api
+                    const reviews = data.result.reviews;
+
+                    // create review box element
+                    reviews.forEach(el => {
+                        sliderWrapper.append(`<div class="slider-item review-box">
+                            <p class="review-text">${el.text}</p>
+                            <div class="review-author">${el.author_name}</div>
+                            <div class="review-rating-date">
+                                <div class="review-rating">
+                                    <span class="review-star ${el.rating >= 1 ? 'full-star' : ''}"></span>
+                                    <span class="review-star ${el.rating >= 2 ? 'full-star' : ''}"></span>
+                                    <span class="review-star ${el.rating >= 3 ? 'full-star' : ''}"></span>
+                                    <span class="review-star ${el.rating >= 4 ? 'full-star' : ''}"></span>
+                                    <span class="review-star ${el.rating >= 5 ? 'full-star' : ''}"></span>
+                                </div>
+                                <div class="review-date">${el.relative_time_description.replace(/ geleden/gi, "")}</div>
+                            </div>
+                        </div>`);
+                    });
+                },
+                complete: function(data) {
+                    destroySlider(); // distroy slick
+                    slickSlider(); // reinit slick
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>

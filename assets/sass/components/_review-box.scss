@@ -1,0 +1,82 @@
+// review box
+.reviews {
+    flex: 1 1 auto;
+    margin-top: 3rem;
+    .slider-wapper {
+        height: 100%;
+        .review-box {
+            background-color: #FEFEFE;
+            border-radius: 16px;
+            display: flex ;
+            flex-direction: column;
+            height: 100%;
+            padding: 1.8rem;
+    
+            .review-text {
+                overflow: hidden;
+                text-overflow: ellipsis;
+                display: -webkit-inline-box;
+                -webkit-line-clamp: 7; /* number of lines to show */
+                -webkit-box-orient: vertical;
+            }
+    
+            .review-author {
+                font-weight: 700;
+                margin-bottom: auto;
+            }
+
+            .review-rating-date {
+                display: flex;
+                align-items: center;
+                margin-top: 2rem;
+
+                .review-rating {
+                    display: flex;
+                    flex: 1 1 auto;
+                    
+                    .review-star {
+                        height: 16px;
+                        width: 16px;
+                        object-fit: contain;
+                        position: relative;
+                        &::after {
+                            content: "";
+                            height: 100%;
+                            left: 0;
+                            position: absolute;
+                            text-align: start;
+                            top: -1px;
+                            width: 100%;
+                            -webkit-mask: url("../img/icons/star.svg") no-repeat 50% 50%;
+                            mask: url("../img/icons/star.svg") no-repeat 50% 50%;
+                            -webkit-mask-size: contain;
+                            mask-size: contain;
+                            background: #ebebeb;
+                        }
+
+                        &.full-star {
+                            &::after {
+                                background: #e9af19;
+                            }
+                        }
+
+                        &.half-star {
+                            &::after {
+                                background: linear-gradient(90deg,#e9af19 50%,#ebebeb 0);
+                            }
+                        }
+                    }
+                }
+    
+    
+                .review-date {
+                    font-size: .7rem;
+                    font-weight: 700;
+                    margin-left: .7rem;
+                    opacity: .25;
+                }
+            }
+            
+        }
+    }
+}

@@ -1,0 +1,11 @@
+{
+  "dependencies": {
+    "dir-archiver": "^2.1.0",
+    "foundation-sites": "^6.7.5",
+    "node-sass": "^9.0.0"
+  },
+  "scripts": {
+    "watch": "node-sass assets/sass/ -o ./assets/css --source-map true --output-style expanded --indent-type tab --indent-width 4 -w",
+    "bundle": "dir-archiver --src . --dest ../dealerleasing.zip --exclude .DS_Store .stylelintrc.json .eslintrc .git .gitattributes .github .gitignore README.md composer.json composer.lock node_modules vendor package-lock.json package.json .travis.yml phpcs.xml.dist sass style.css.map yarn.lock"
+  }
+}

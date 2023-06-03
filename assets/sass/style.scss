@@ -1,0 +1,18 @@
+
+@import '../../node_modules/foundation-sites/scss/foundation.scss';
+
+$header-font-family: Montserrat;
+
+@include foundation-global-styles;
+@include foundation-flex-classes;
+@include foundation-flex-grid;
+@include foundation-typography;
+
+//plugins 
+@import "./plugins/slick";
+
+@import "./bases/fonts";
+@import "./bases/main";
+
+@import "./components/review-box";
+@import "./components/arrows-btns";
